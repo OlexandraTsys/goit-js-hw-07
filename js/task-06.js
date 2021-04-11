@@ -1,15 +1,16 @@
-const inputEl = document.querySelector('#validation-input');
+const getIdInput = document.querySelector('#validation-input');
 
-inputEl.addEventListener('blur', onInputBlur)
+getIdInput.addEventListener('input', onBorderColorChange);
 
-function onInputBlur() {
-if(inputEl.value.length === 6){
-inputEl.classList.add('valid');
-inputEl.classList.remove('invalid');
-}
-else {
-inputEl.classList.add('invalid');
-inputEl.classList.remove('valid');
-}
-console.log('Потерян фокус');
+function onBorderColorChange(event) {
+   
+    if (Number(getIdInput.dataset.length) === event.currentTarget.value.length) {
+        getIdInput.classList.remove('invalid');
+        getIdInput.classList.add('valid');
+       
+    } else {
+        getIdInput.classList.add('invalid');
+        getIdInput.classList.remove('valid');
+    }
+    
 }

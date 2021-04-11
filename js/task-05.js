@@ -1,11 +1,18 @@
-const refs = {
-        inputEl: document.querySelector('#name-input'),
-        outputEl: document.querySelector('#name-output'),
-    };
+const input = document.querySelector('#name-input');
+const nameSpan = document.querySelector('#name-output');
+console.log(input);
+console.log(nameSpan);
 
-    refs.inputEl.addEventListener('input', onInputChange);
+input.addEventListener('input', onInputChange);
 
-    function onInputChange (event){
-        refs.outputEl.textContent = event.currentTarget.value;
-        console.log(onInputChange);
+
+
+function onInputChange(event) {
+    console.log(event.currentTarget.value);
+    if (event.currentTarget.value === '') {
+        nameSpan.innerHTML = 'незнакомец';
+    } else {
+        nameSpan.textContent = event.currentTarget.value;
     }
+    
+ }
