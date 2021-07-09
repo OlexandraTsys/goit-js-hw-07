@@ -1,35 +1,55 @@
-const refs = {
-    input: document.querySelector('#controls input'),
-    renderBtn:  document.querySelector('[data-action="render"]'),
-    destroyBtn: document.querySelector('[data-action="destroy"]'),
-    boxes: document.querySelector('#boxes'),
-}
+const inputEl = document.querySelector('input');
+const btnRenderEl = document.querySelector('[data-action="render"]');
+const btnDestroyEl = document.querySelector('[data-action="destroy"]');
+const divContainerEl = document.querySelector('#boxes');
 
-const getRandomColors = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+btnRenderEl.addEventListener('click', onRenderClick);
 
-function createBoxes(amount) {
+function onRenderClick() {
 
-    const newBoxes = [];
+    function createBoxes(amount) {
+        divContainerEl.innerHTML = '';
 
-    for (let i = 0; i < amount; i += 1) {
-    const boxRef = document.createElement('div');
-    boxRef.id = 'box';
-    boxRef.style.width = `${30 + i * 10}px`;
-    boxRef.style.height = `${30 + i * 10}px`;
-    boxRef.style.backgroundColor = getRandomColors();
-    boxRef.style.display = 'inline-block';
-    newBoxes.push(boxRef);
+        if (amount > 0) {
+            let divCollection = '';
+            let divElement = '';
+
+            for (let i = 0; i < amount; i++) {
+                divElement = `
+                <div style="width: ${30 + i * 10}px; height: ${30 + i * 10}px; background: ${rgb()}"></div>
+                `;
+                divCollection += divElement;
+                
+            }
+            
+            divContainerEl.insertAdjacentHTML("afterbegin", divCollection);
+            return;
+        }
+        alert('Введите количество в поле');
+        inputEl.focus();
     }
 
-    refs.boxes.append(...newBoxes);
+    createBoxes(inputEl.value);
+
+    inputEl.value = '';
+   
+};
+
+function rgb() {
+    let color = '#';
+    let hexNumber = '';
+    
+    for (let j = 1; j <= 3; j++) {
+        hexNumber = parseInt(Math.random() * 256).toString(16);
+        if (hexNumber.length < 2) hexNumber = '0' + hexNumber;
+        color += hexNumber;
+    }
+
+    return color;
 }
 
-function cleanBoxes(amount) {
-    refs.boxes.innerHTML = '';
-    refs.input.value = '';
-}
+btnDestroyEl.addEventListener('click', onDestroyClick);
 
-refs.renderBtn.addEventListener("click", () =>
-    createBoxes(refs.input.value)
-);
-refs.destroyBtn.addEventListener("click", cleanBoxes);
+function onDestroyClick() {
+    divContainerEl.innerHTML = '';
+}

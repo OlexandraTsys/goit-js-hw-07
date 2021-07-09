@@ -15,25 +15,16 @@ const images = [
     alt: 'Group of Horses Running',
   },
 ];
-const galerryEl = document.querySelector('#gallery');
-galerryEl.classList.add('flex-container');
-galerryEl.style.display = 'flex';
-galerryEl.style.alignItems = 'center';
 
-const optionEl = images.map(option => {
-  
-const galleryListEl = document.createElement('li');
-galleryListEl.classList.add('flex-element');
-galleryListEl.style.marginRight = '20px';
-galleryListEl.style.listStyle = 'none';
+const makeItemMarkup = ({ url, alt }) => {
+    return `
+    <li>
+        <img src="${url}" alt="${alt}" width="320">
+    </li>
+    `
+};
 
-galleryListEl.insertAdjacentHTML(
-  'afterbegin',
-  `<img src='${option.url}' alt='${option.alt}' width='380px'>`,
+const makeItems = images.map(makeItemMarkup).join('')
 
-)
-
-  return galleryListEl;
-});
-
-galerryEl.append(...optionEl);
+const listEl = document.querySelector('#gallery');
+listEl.insertAdjacentHTML('afterbegin', makeItems)

@@ -1,16 +1,11 @@
-const getIdInput = document.querySelector('#validation-input');
+const inputEl = document.querySelector('#validation-input')
 
-getIdInput.addEventListener('input', onBorderColorChange);
+inputEl.addEventListener('blur', onInput);
+function onInput() {
+    if (!inputEl.hasAttribute('class')) inputEl.classList.add
+    inputEl.className = 'invalid';
 
-function onBorderColorChange(event) {
-   
-    if (Number(getIdInput.dataset.length) === event.currentTarget.value.length) {
-        getIdInput.classList.remove('invalid');
-        getIdInput.classList.add('valid');
-       
-    } else {
-        getIdInput.classList.add('invalid');
-        getIdInput.classList.remove('valid');
+    if (inputEl.value.length === +inputEl.dataset.length) {
+        inputEl.classList.replace('invalid', 'valid');
     }
-    
 }
